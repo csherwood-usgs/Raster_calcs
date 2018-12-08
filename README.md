@@ -18,18 +18,18 @@ Below, I briefly list filenames with brief notes to remind me of what they do, a
 
 * ```Calc_Sandwich_slopes_and_roughness``` - Includes functions for calculating slope and roughness. Demonstrates use of `scipy.ndimage.filters.generic_filter`.*Does not include March 2018; v1 maps.* Uses rasterio. Writes slope `.tif` files.
 
+* ```Sandwich_summarize_all_DEM_minus_transect``` - Reads the DEM minus transect .txt files (in `2017_Karen_Sandwich_maps\\dem_trans`; based on v1 maps, and makes a nice histogram and map of diffs on top of mean elevation map. *Needs to upgraded to reflect movement of directory.*
+
 ## Sandwich map data processing
-*```Calc_Profile_retreat_rates``` - Loads profiles extracted from Global Mapper and calculates profile volumes. Updated to include Mrch 2018 using v1 maps, but not yet a complete analysis. Writes out `.mat` and `.csv` files with volumes, areas, and errors. *Need to update error estimates to 1.96xsqrt([2x0.08]^2)* 
+* ```Calc_Profile_retreat_rates``` - Loads profiles extracted from Global Mapper and calculates profile volumes. Updated to include Mrch 2018 using v1 maps, but not yet a complete analysis. Writes out `.mat` and `.csv` files with volumes, areas, and errors. *Need to update error estimates to 1.96xsqrt([2x0.08]^2)* 
 
 ## Sandwich oceanographic data
-
-```CDIP221_to_nc``` - Processes a mix of wave and water-level data. Work in progress. Used to send TWL estimates to Patrick before 2018 Fall AGU.
-
-
-
+* ```CDIP221_to_nc``` - Processes a mix of wave and water-level data. Work in progress. Used to send TWL estimates to Patrick before 2018 Fall AGU.
 
 
 ## Sandwich processing in other repos
-```Analysis of alongshore transport using groin images``` - https://github.com/csherwood-usgs/GE_groin_analysis/blob/master/analyze_GE_groin_asymmetry.ipynb
+* ```Analysis of alongshore transport using groin images``` - https://github.com/csherwood-usgs/GE_groin_analysis/blob/master/analyze_GE_groin_asymmetry.ipynb
 
 ## Other stuff
+* ```Compare_DEM_and_transect.ipynb``` - Example of loading .tif file and transect points and calculating a histogram of differences. Include bilinear interpolation routine. Uses rasterio. Demonstrates addding columns to Pandas dataframe and saving as .csv with values for NaNs and a fixed format.
+* ```Coordinate_conversion``` - Example of how to use `pyproj` and EPSG info to do coordinate conversions. 
