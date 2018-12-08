@@ -12,16 +12,14 @@ Below, I briefly list filenames with brief notes to remind me of what they do, a
 ```v2 maps``` - These are reprocessed maps with associated spatial difference maps. These have not been included yet.
 
 ## Sandwich raster calcs
-```Calc_Sandwich_volumes``` - Calculate volumes from 0.1-m maps in UTM space. Uses upper/lower beach polygons in ```Volume_polygons.geojson``` that were created in GM. These use delz = 0.08. Uses rasterio.
+* ```Calc_Sandwich_volumes``` - Calculate volumes from 0.1-m maps in UTM space. Uses upper/lower beach polygons in ```Volume_polygons.geojson``` that were created in GM. These use delz = 0.08. Uses rasterio.
 
-```Calc_Sandwich_variance``` - Calculate s.d. and deviations for "fixed" points from 0.1-m maps in UTM space. Includes March 2018, still v1 maps. *Final boxplot needs to be cleaned up. Also, needs to import renamed March 2018 map.* Uses rasterio. Includes my bi-linear interpolation routine.
+* ```Calc_Sandwich_variance``` - Calculate s.d. and deviations for "fixed" points from 0.1-m maps in UTM space. Includes March 2018, still v1 maps. *Final boxplot needs to be cleaned up. Also, needs to import renamed March 2018 map.* Uses rasterio. Includes my bi-linear interpolation routine.
 
-```Calc_Sandwich_slopes_and_roughness``` - Includes functions for calculating slope and roughness. Demonstrates use of `scipy.ndimage.filters.generic_filter`.*Does not include March 2018; v1 maps.* Uses rasterio. Writes slope `.tif` files.
+* ```Calc_Sandwich_slopes_and_roughness``` - Includes functions for calculating slope and roughness. Demonstrates use of `scipy.ndimage.filters.generic_filter`.*Does not include March 2018; v1 maps.* Uses rasterio. Writes slope `.tif` files.
 
 ## Sandwich map data processing
-```Calc_Profile_retreat_rates``` - Loads profiles extracted from Global Mapper and calculates profile volumes. Updated to include Mrch 2018 using v1 maps, but not yet a complete analysis. Writes out `.mat` and `.csv` files with volumes, areas, and errors. *Need to update error estimates to 1.96xsqrt([2x0.08]^2)* 
-
-```
+*```Calc_Profile_retreat_rates``` - Loads profiles extracted from Global Mapper and calculates profile volumes. Updated to include Mrch 2018 using v1 maps, but not yet a complete analysis. Writes out `.mat` and `.csv` files with volumes, areas, and errors. *Need to update error estimates to 1.96xsqrt([2x0.08]^2)* 
 
 ## Sandwich oceanographic data
 
