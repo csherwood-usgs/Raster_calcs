@@ -11,6 +11,8 @@ Below, I briefly list filenames with brief notes to remind me of what they do, a
 
 ```v2 maps``` - These are reprocessed maps with associated spatial difference maps. These have not been included yet.
 
+*Need to remove several notebooks that are off-task.*
+
 ## Key Sandwich raster calcs
 * ```Calc_Sandwich_volumes``` - Calculate volumes from 0.1-m maps in UTM space. Uses upper/lower beach polygons in ```Volume_polygons.geojson``` that were created in GM. These use delz = 0.08. Uses rasterio.
 
@@ -27,8 +29,6 @@ Below, I briefly list filenames with brief notes to remind me of what they do, a
 ## Other Sandwich raster calcs (not part of final analysis thread)
 * ```Calc_Sandwich_slopes_and_roughness``` - Includes functions for calculating slope and roughness. Demonstrates use of `scipy.ndimage.filters.generic_filter`. *Does not include March 2018; v1 maps.* Uses rasterio. Writes slope `.tif` files.
 
-
-
 ## Sandwich map data processing
 * ```Calc_Profile_retreat_rates``` - Loads profiles extracted from Global Mapper and calculates profile volumes. Updated to include Mrch 2018 using v1 maps, but not yet a complete analysis. Writes out `.mat` and `.csv` files with volumes, areas, and errors. *Need to update error estimates to 1.96xsqrt([2x0.08]^2).* 
 * ```GCP_Experiment``` - Loads transect data from 2017-01-25 and several DEMs made with various arrays of GCPs to evaluate best GCP configuration.
@@ -37,12 +37,15 @@ Below, I briefly list filenames with brief notes to remind me of what they do, a
 ## Sandwich oceanographic data
 * ```CDIP221_to_nc``` - Processes a mix of wave and water-level data. Work in progress. Used to send TWL estimates to Patrick before 2018 Fall AGU.
 * ```Sandwich_timeline``` - Load oceangraphic data and make little time-series plots. *Need to add Waverider Hs and second Groin DWave data. Maybe merge with CDIP_to_nc TWL calcs?*
-
+* ```Functions_to_convert_datenum_datetime``` - Definition and test of conversion routines to/from Matlab datenum and Python datetime.
 
 ## Sandwich processing in other repos
 * ```Analysis of alongshore transport using groin images``` - https://github.com/csherwood-usgs/GE_groin_analysis/blob/master/analyze_GE_groin_asymmetry.ipynb
 
 ## Other stuff
-* ```Compare_DEM_and_transect.ipynb``` - Example of loading .tif file and transect points and calculating a histogram of differences. Include bilinear interpolation routine. Uses rasterio. Demonstrates addding columns to Pandas dataframe and saving as .csv with values for NaNs and a fixed format.
+* ```Compare_DEM_and_transect.ipynb``` - Example of loading .tif file and transect points and calculating a histogram of differences. Include bilinear interpolation routine. Uses rasterio. Demonstrates adding columns to Pandas dataframe and saving as .csv with values for NaNs and a fixed format.
 * ```Compress_byte_array``` - Messing around with `zlib` compression. Completely off-topic. *Should move elsewhere.*
-* ```Coordinate_conversion``` - Example of how to use `pyproj` and EPSG info to do coordinate conversions. 
+* ```Coordinate_conversion``` - Example of how to use `pyproj` and EPSG info to do coordinate conversions.
+* ```test_slope_aspect``` - Experiment with calculating slope and aspect from xarray Dataframe and using hillshade to plot.
+* ```test_astropy_convolution``` - Demo nice 2D filtering with anisotropy and NaN handling.
+* ```zevenbergen``` - Unsuccessful attempt to define slope/aspect function using Zevenbergen formula. *Needs to be debugged or abandoned.*
