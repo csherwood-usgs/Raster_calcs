@@ -4,6 +4,89 @@ from astropy.convolution import Gaussian1DKernel, Box1DKernel, Gaussian2DKernel
 from scipy.signal import convolve as scipy_convolve
 from astropy.convolution import convolve as astropy_convolve
 
+def hmetrics( z, dx=1., dy=1.):
+    """
+    Calculate horizontal metrics in DEM coordiante
+
+    Peckham, S.D., 'Profile, Plan and Streamline Curvature: A Simple Derivation and Applications'
+    Geomorphometery.org/2011.
+    https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=8&cad=rja&uact=8&ved=2ahUKEwinl86vkKDgAhVQxVkKHaEVBlMQFjAHegQIARAC&url=https%3A%2F%2Fwww.geomorphometry.org%2Fsystem%2Ffiles%2FPeckham2011ageomorphometry.pdf&usg=AOvVaw1iq3Zz0N3fHhBDgi_jXD-R
+    TODO: Check varying dx and dy. I think that is as simple as multipying the
+          returned gradients by dx and dy.
+    TOTO: Check plan curvature. Looks too noisy.
+
+    Input:
+       z - Elevation matrix with
+    """
+    fy, fx = np.gradient( z )
+    fy = fy*dy
+    fx = fx*dx
+
+    slope = np.sqrt(fx**2 + fy**2)
+    #  slope = np.pi/2. - np.arctan(slope_mag) # angle in radians
+    aspect = np.rad2deg( np.arctan2( -fx, -fy) )
+
+    fxy, fxx = np.gradient(fx)
+    fyy, fyx = np.gradient(fy)
+    fxy = fxy*dy
+    fxx = fxx*dx
+    fyy = fyy*dy
+    fyx = fyx*dx
+
+    # profile curvature
+    kp = (fx**2.*fxx + 2.*fx*fy*fxy + fy**2*fyy)/(-slope**2)
+    # plan curvature
+    kc = (fy**2.*fxx - 2.*fx*fy*fxy + fx**2*fyy)/(-slope**3)
+
+    return slope, aspect, kp, kc
+
+def map_stats3d(mp):
+    '''
+    Calculate some basic statistics for 3D map arrays
+    '''
+    mean = np.nanmean(mp,axis=(1,2))
+    mad = np.nanmean(np.abs(mp),axis=(1,2))
+    dmin = np.nanmin(mp,axis=(1,2))
+    dmax = np.nanmax(mp,axis=(1,2))
+    rms = np.sqrt(np.nanmean(mp**2.,axis=(1,2)))
+    s = np.shape(mp)
+    num = []
+    numn = []
+    for i in range(s[0]):
+       num.append(mp[i,:,:].size)
+       numn.append(np.count_nonzero(np.isnan(mp[i,:,:])))
+    print("Shape: ",s)
+    print("mean",mean)
+    print("mad",mad)
+    print("min",dmin)
+    print("max",dmax)
+    print("rms",rms)
+    print("nans",numn)
+    print("size",num)
+    return mean, mad
+
+def map_stats2d(mp):
+    '''
+    Calculate some basic statistics for 2D map arrays
+    '''
+    mean = np.nanmean(mp,axis=(0,1))
+    mad = np.nanmean(np.abs(mp),axis=(0,1))
+    dmin = np.nanmin(mp,axis=(0,1))
+    dmax = np.nanmax(mp,axis=(0,1))
+    rms = np.sqrt(np.nanmean(mp**2.,axis=(0,1)))
+    s = np.shape(mp)
+    num = (mp[:,:].size)
+    numn = (np.count_nonzero(np.isnan(mp[:,:])))
+    print("Shape: ",s)
+    print("mean",mean)
+    print("mad",mad)
+    print("min",dmin)
+    print("max",dmax)
+    print("rms",rms)
+    print("nans",numn)
+    print("size",num)
+    return mean, mad
+
 def pmetrics(x, y, z, MWL=-0.2, MHW=1.28, zrange=0.3):
     """
     Find points on beach profile
